@@ -1,6 +1,5 @@
 package com.dipadev.personal_blog.dtos;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
 public record UserRequestDTO(
