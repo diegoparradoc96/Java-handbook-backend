@@ -12,17 +12,21 @@ public class Article {
             name = "article_seq",
             sequenceName = "article_sequence",
             allocationSize = 1
-    )
+    )    
     private Integer id;
+
     private String title;
+
+    @Column(columnDefinition = "TEXT")
     private String body;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    public Article(Integer id, String title, String body, User user) {
-        this.id = id;
+    public Article() {}
+
+    public Article(String title, String body, User user) {        
         this.title = title;
         this.body = body;
         this.user = user;
@@ -30,11 +34,7 @@ public class Article {
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    }    
 
     public String getTitle() {
         return title;
@@ -55,7 +55,7 @@ public class Article {
     public User getUser() {
         return user;
     }
-
+    
     public void setUser(User user) {
         this.user = user;
     }

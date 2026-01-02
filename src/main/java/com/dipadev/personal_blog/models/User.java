@@ -20,8 +20,11 @@ public class User implements UserDetails {
             allocationSize = 1
     )
     private Integer id;
+
     private String username;
+
     private String password;
+    
     private Byte typeUser;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
