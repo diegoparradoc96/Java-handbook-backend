@@ -1,14 +1,13 @@
 package com.dipadev.personal_blog.controllers;
 
+import com.dipadev.personal_blog.dtos.LoginRequestDTO;
+import com.dipadev.personal_blog.dtos.LoginResponseDTO;
 import com.dipadev.personal_blog.dtos.UserRequestDTO;
 import com.dipadev.personal_blog.dtos.UserResponseDTO;
 import com.dipadev.personal_blog.services.business.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -24,13 +23,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public ResponseEntity<List<UserResponseDTO>> getUsers() {
         List<UserResponseDTO> users = userService.getUsers();
         return ResponseEntity.ok(users);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public ResponseEntity<UserResponseDTO> postUser(@Valid @RequestBody UserRequestDTO userRequest) {
         UserResponseDTO createdUser = userService.postUser(userRequest);
 
@@ -43,6 +42,11 @@ public class UserController {
         return ResponseEntity.created(location).body(createdUser);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO loginRequest) {
+        LoginResponseDTO loginResponse = userService.login(loginRequest);
+        return ResponseEntity.ok(loginResponse);
+    }
 }
 
 
