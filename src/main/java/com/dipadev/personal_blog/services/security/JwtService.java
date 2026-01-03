@@ -32,7 +32,8 @@ public class JwtService {
     }
 
     public String generateToken(UserDetails userDetails) {
-        // Agregamos los roles/autoridades como un extra claim (práctica opcional, pero útil)
+        // Agregamos los roles/autoridades como un extra claim (práctica opcional, pero
+        // útil)
         Map<String, Object> claims = new HashMap<>();
         String roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -66,12 +67,11 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts
-                .parser()
-                .setSigningKey(getSignInKey())
+        return Jwts.parser()
+                .verifyWith(getSignInKey())
                 .build()
-                .parseClaimsJws(token)
-                .getBody();
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     private boolean isTokenExpired(String token) {
